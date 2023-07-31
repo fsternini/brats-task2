@@ -1,4 +1,4 @@
-name: /Users/federicosternini/Documents/Data Science/brats-task2/.conda
+name: brats-task2
 channels:
   - defaults
 dependencies:
