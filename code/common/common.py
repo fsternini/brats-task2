@@ -31,7 +31,8 @@ class DatasetCreator:
 class Dataset:
     """Object representing the dataset"""
     
-    def __init__(self, json_file)
+    def __init__(self, json_file):
+        self.json_file = json_file
 
 
 if __name__ == '__main__':
