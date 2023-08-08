@@ -28,5 +28,11 @@ class DatasetCreator:
         with open(self.archive_path+'dataset_structure.json','x') as fp:
             json.dump(self.dataset,fp)
 
+class Dataset:
+    """Object representing the dataset"""
+    
+    def __init__(self, json_file)
+
+
 if __name__ == '__main__':
     pass
