@@ -34,10 +34,10 @@ class Dataset:
     def __init__(self, json_file):
         self.json_file = json_file
         try:
-            with open(file_path, 'r') as self.json_file:
+            with open(self.json_file, 'r') as self.json_file:
                 self.dataset = json.load(self.json_file)
         except FileNotFoundError:
-            print(f"The file '{file_path}' was not found.")
+            print(f"The file '{self.json_file}' was not found.")
         except json.JSONDecodeError as e:
             print(f"Error parsing JSON: {e}")
         except Exception as e:
