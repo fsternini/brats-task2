@@ -33,7 +33,34 @@ class Dataset:
     
     def __init__(self, json_file):
         self.json_file = json_file
+        try:
+            with open(file_path, 'r') as self.json_file:
+                self.dataset = json.load(self.json_file)
+        except FileNotFoundError:
+            print(f"The file '{file_path}' was not found.")
+        except json.JSONDecodeError as e:
+            print(f"Error parsing JSON: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
+    def get_files_in_node(self, node_name):
+        files = []
+        node = self.dataset
+        def traverse(self):
+            if isinstance(node, dict):
+                for key, value in node.items():
+                    if key == node_name:
+                        if isinstance(value, dict):
+                            for sub_key, sub_value in value.items():
+                                if isinstance(sub_value, str):
+                                    files.append(sub_value)
+                                else:
+                                    traverse(sub_value)
+                    else:
+                        traverse(value)
+            elif isinstance(node, list):
+                for item in node:
+                    traverse(item)
 
 if __name__ == '__main__':
     pass
