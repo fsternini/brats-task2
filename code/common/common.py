@@ -46,21 +46,23 @@ class Dataset:
     def get_files_in_node(self, node_name):
         files = []
         node = self.dataset
-        def traverse(self):
-            if isinstance(node, dict):
-                for key, value in node.items():
-                    if key == node_name:
-                        if isinstance(value, dict):
-                            for sub_key, sub_value in value.items():
-                                if isinstance(sub_value, str):
-                                    files.append(sub_value)
-                                else:
-                                    traverse(sub_value)
-                    else:
-                        traverse(value)
-            elif isinstance(node, list):
-                for item in node:
-                    traverse(item)
+        def traverse(node):
+                if isinstance(node, dict):
+                    for key, value in node.items():
+                        if key == node_name:
+                            if isinstance(value, dict):
+                                for sub_key, sub_value in value.items():
+                                    if isinstance(sub_value, str):
+                                        files.append(sub_value)
+                                    else:
+                                        traverse(sub_value)
+                        else:
+                            traverse(value)
+                elif isinstance(node, list):
+                    for item in node:
+                        traverse(item)
+        traverse(node)
+        return files
 
 if __name__ == '__main__':
     pass
