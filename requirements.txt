@@ -1,4 +1,5 @@
 pydicom
 numpy
-pytorch
+torch
+torchvision
 matplotlib
