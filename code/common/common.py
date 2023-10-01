@@ -81,22 +81,19 @@ class Volume:
 
         self.volume_data = np.stack([s.pixel_array for s in slices])
 
-    def visualize(self):
-        if self.volume_data is None:
-            print("No volume data loaded.")
-            return
-
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-
-        x, y, z = self.volume_data.nonzero()
-        ax.scatter(x, y, z, c=self.volume_data[x, y, z], cmap='gray')
-
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-
+    def show_slice(self, slice_idx, index=0):
+        ind = {
+            0:self.volume_data[slice_idx, :, :],
+            1:self.volume_data[:, slice_idx, :], 
+            2:self.volume_data[:, :, slice_idx]
+        }
+        plt.imshow(ind[index], cmap='gray')
+        plt.axis('off')
         plt.show()
+
+    def show_volume(self,index=0):
+        self.slices = self.volume_data.shape[index]
+        interact(self.show_slice, slice_idx=IntSlider(min=0, max=self.slices-1, step=1, value=0),index=index)
 
 if __name__ == '__main__':
     pass
