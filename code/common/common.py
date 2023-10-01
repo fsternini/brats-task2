@@ -4,7 +4,7 @@ import numpy as np
 import json
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from ipywidgets import interact, IntSlider
+from ipywidgets import interact, IntSlider, fixed
 
 
 class DatasetCreator:
@@ -95,7 +95,7 @@ class Volume:
 
     def show_volume(self,index=0):
         self.slices = self.volume_data.shape[index]
-        interact(self.show_slice, slice_idx=IntSlider(min=0, max=self.slices-1, step=1, value=0),index=index)
+        interact(self.show_slice, slice_idx=IntSlider(min=0, max=self.slices-1, step=1, value=0), index=fixed(index))
 
 if __name__ == '__main__':
     pass
