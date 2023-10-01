@@ -1,5 +1,9 @@
 import os
+import pydicom
+import numpy as np
 import json
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 class DatasetCreator:
     """Returns a dictionary with all dataset resources and respective paths.
@@ -63,6 +67,36 @@ class Dataset:
                         traverse(item)
         traverse(node)
         return files
+    
+
+class Volume:
+    def __init__(self, dicom_dir):
+        self.dicom_dir = dicom_dir
+        self.volume_data = None
+
+    def load_dicom_images(self):
+        dicom_files = sorted([f for f in os.listdir(self.dicom_dir) if f.endswith('.dcm')])
+        slices = [pydicom.dcmread(os.path.join(self.dicom_dir, f)) for f in dicom_files]
+        slices.sort(key=lambda x: float(x.ImagePositionPatient[2]))
+
+        self.volume_data = np.stack([s.pixel_array for s in slices])
+
+    def visualize(self):
+        if self.volume_data is None:
+            print("No volume data loaded.")
+            return
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+
+        x, y, z = self.volume_data.nonzero()
+        ax.scatter(x, y, z, c=self.volume_data[x, y, z], cmap='gray')
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+        plt.show()
 
 if __name__ == '__main__':
     pass
