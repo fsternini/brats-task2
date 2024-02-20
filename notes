@@ -1,0 +1,6 @@
+I have to identify an efficient way to access data and to store information for each patient reporting in a structure similar to a tabular database the information related to:
+- how many volumes for each scan type
+- orientation of the volumes
+First, I have to check all the orientations of the images in the dataset. The orientations may be influential for the calculation of the parameters, so we may have two options:
+- training of different networks for the feature extraction for each orientation available in the dataset
+- rotating the volumes and using the same network (I think it could introduce some errors, as the spatial resolution in the different axis is not the same)
